@@ -1,15 +1,12 @@
 # rancher-server-install
 
 ````
-docker run -d --name=rancher --restart=unless-stopped -p 80:80 -p 443:443 --privileged rancher/rancher:v2.5.7 --acme-domain vks.vmar.xyz
-
-admin / 9aHqbbHvhLQnQcX7dHfdha9gKNaPGvNXjSh5evpwD5rMKmN8
-
+docker run -d --name=rancher --restart=unless-stopped -p 80:80 -p 443:443 --privileged rancher/rancher:stable --acme-domain <your domain>
 
 version: "3.6"
 services:
   rancher:
-    image: "rancher/rancher:v2.5.7"
+    image: "rancher/rancher:stable"
     container_name: rancher
     hostname: rancher
     privileged: true
@@ -18,10 +15,10 @@ services:
     - "80:80"
     - "443:443"
     volumes:
-    - /opt/rancher/auditlog:/var/log/auditlog
-    - /opt/rancher/data:/var/lib/rancher
+    - /opt/rancher/auditlog:/var/log/auditlog:rw
+    - /opt/rancher/data:/var/lib/rancher:rw
     environment:
     - AUDIT_LEVEL=1
-    command: "--acme-domain vks.vmar.xyz"
+    command: "--acme-domain <your domain>"
 
 ````
